@@ -1,0 +1,60 @@
+<div [@routerTransition]>
+    <!-- <app-page-header [heading]="'Aprobadas'" [icon]="'fa-edit'"></app-page-header> -->
+    <div class="row">
+        <div class="col col-xl-12 col-lg-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <div class="btn btn-light disabled" style="opacity: 1;">Solicitudes</div>
+                    <div class="float-right">
+                            <!-- <button type="button" [routerLink]="['categoria',nueva,'Nueva']"
+                                 class="btn btn-success">
+                                <i class="fa fa-plus"></i>Nueva
+                            </button> -->
+                    </div>
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Participante</th>
+                            <th>Grupo</th>
+                            <th>Categoria</th>
+                            <th>Estado</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let sol of solicitudes; let i=index">
+                                <td>{{i+1}}</td>
+                                <td>{{sol.usuario.username}}</td>
+                                <td>{{sol.grupo.nombre}}</td>
+                                <td>{{sol.categoria.nombre}}</td>
+                                <td>{{sol.estado}}</td>
+                                <td>  
+                                    <div class="btn-group btn-group-sm  mr-2" role="group" aria-label="Basic example">
+                                        <button type="button" [routerLink]="['solicitud',sol.id,'Solicitud']"
+                                             [routerLinkActive]="['router-link-active']"
+                                             class="btn btn-primary">
+                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                            </button>
+                                        <!-- <button type="button" [routerLink]="['categoria',sol.id,'Editar']" 
+                                                class="btn btn-success">
+                                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                                            </button> -->
+                                        <!-- <button type="button" [routerLink]="['categoria',sol.id]"
+                                                 class="btn btn-danger">
+                                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                        </button> -->
+                                      </div>
+                                </td>
+                              
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
