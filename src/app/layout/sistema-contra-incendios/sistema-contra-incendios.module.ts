@@ -5,8 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { ColorPickerModule } from 'ngx-color-picker';
 
 
-import { BsElementRoutingModule } from './bs-element-routing.module';
-import { BsElementComponent } from './bs-element.component';
+import { SistemaContraIncendiosRoutingModule } from './sistema-contra-incedios-routing.module';
+import { SistemaContraIncendiosComponent } from './sistema-contra-incendios.component';
 import { PageHeaderModule } from './../../shared';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -14,11 +14,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     imports: [CommonModule,
-        // ColorPickerModule,
         FormsModule,
         ColorPickerModule,
         NgbModule.forRoot(),
-         BsElementRoutingModule, PageHeaderModule],
-    declarations: [BsElementComponent]
+        SistemaContraIncendiosRoutingModule,
+        PageHeaderModule],
+    declarations: [SistemaContraIncendiosComponent]
 })
-export class BsElementModule {}
+export class SistemaContraIncendiosModule {}

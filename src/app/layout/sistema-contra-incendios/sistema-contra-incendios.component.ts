@@ -7,12 +7,12 @@ declare const fabric: any;
 
 
 @Component({
-    selector: 'app-bs-element',
-    templateUrl: './bs-element.component.html',
-    styleUrls: ['./bs-element.component.scss'],
+    selector: 'sistema-contra-incendios',
+    templateUrl: './sistema-contra-incendios.component.html',
+    styleUrls: ['./sistema-contra-incendios.component.scss'],
     animations: [routerTransition()]
 })
-export class BsElementComponent implements OnInit {
+export class SistemaContraIncendiosComponent implements OnInit {
     
     constructor(private _sanitizer:DomSanitizer) {}
     //----------------------------------logica del canvas-------------------------
