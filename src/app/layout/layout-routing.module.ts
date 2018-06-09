@@ -14,7 +14,8 @@ const routes: Routes = [
             { path: 'forms', loadChildren: './form/form.module#FormModule' },
             { path: 'sistema-incendios', 
               loadChildren: './sistema-contra-incendios/sistema-contra-incendios.module#SistemaContraIncendiosModule' },
-            { path: 'grid', loadChildren: './grid/grid.module#GridModule' },
+            { path: 'sistema-electrico',
+             loadChildren: './sistema-electrico/sistema-electrico.module#SistemaElectricoModule' },
             { path: 'components', loadChildren: './bs-component/bs-component.module#BsComponentModule' },
             { path: 'blank-page', loadChildren: './blank-page/blank-page.module#BlankPageModule' }
         ]

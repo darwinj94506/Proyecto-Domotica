@@ -1,21 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
-import{DomSanitizer} from '@angular/platform-browser';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import{CrudService} from './../../shared/services/crud.service';
 import 'fabric';
 declare const fabric: any;
 
-
 @Component({
-    selector: 'sistema-contra-incendios',
-    templateUrl: './sistema-contra-incendios.component.html',
-    styleUrls: ['./sistema-contra-incendios.component.scss'],
+    selector: 'app-grid',
+    templateUrl: './sistema-electrico.component.html',
+    styleUrls: ['./sistema-electrico.component.scss'],
     animations: [routerTransition()]
 })
-export class SistemaContraIncendiosComponent implements OnInit {
+export class SistemaElectricoComponent implements OnInit {
     
-    constructor(private _sanitizer:DomSanitizer) {}
-    //----------------------------------logica del canvas-------------------------
+    
+    
+    constructor() {}
+
+ //----------------------------------logica del canvas-------------------------
     private canvas: any;
     private props: any = {
       canvasFill: '#ffffff',
@@ -193,7 +194,6 @@ export class SistemaContraIncendiosComponent implements OnInit {
       var reader = new FileReader();
       reader.onload = (event) => {
         this.url = event.target['result'];
-        console.log(this.url);
       }
       reader.readAsDataURL(event.target.files[0]);
     }
@@ -589,41 +589,5 @@ export class SistemaContraIncendiosComponent implements OnInit {
     this.imageEditor = false;
     this.figureEditor = false;
   }
-
-
-
-
-
-    
-
-    //----------------------------------fin logica del canvas---------------------
-    pisos:any=[{
-        "nombre":"piso1",
-        "imagen":"assets/primero.jpg"
-    },{
-        "nombre":"piso2",
-        "imagen":"assets/dos.jpg"
-
-    },{
-        "nombre":"piso3",
-        "imagen":"file:///E:/7-8/Domotica-Apps/recursos/Domotica-Req/Sistema-Incendios/1.png"
-    },{
-        "nombre":"piso4",
-        "imagen":"assets/cuatro.jpg"
-
-    },{
-        "nombre":"piso5",
-        "imagen":"assets/cinco.jpg"
-    },{
-        "nombre":"piso6",
-        "imagen":"assets/dos.jpg"
-
-    }]
-
-    //----------------------------------Para fondo de imagen-----------------------
-    public sanitizeImage(image:string){
-        return this._sanitizer.bypassSecurityTrustStyle(`url(${image})`);
-
-    }
 
 }
