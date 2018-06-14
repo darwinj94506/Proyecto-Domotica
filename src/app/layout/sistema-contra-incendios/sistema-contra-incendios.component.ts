@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
 import{DomSanitizer} from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import{CrudService} from '../../shared/services/crud.service';
 import 'fabric';
 declare const fabric: any;
 
@@ -14,7 +15,7 @@ declare const fabric: any;
 })
 export class SistemaContraIncendiosComponent implements OnInit {
     
-    constructor(private _sanitizer:DomSanitizer) {}
+    constructor(private _sanitizer:DomSanitizer,private _crud:CrudService) {}
     //----------------------------------logica del canvas-------------------------
     private canvas: any;
     private props: any = {
@@ -46,7 +47,21 @@ export class SistemaContraIncendiosComponent implements OnInit {
     private imageEditor: boolean = false;
     private figureEditor: boolean = false;
     private selected: any;
+    public pisos:any;
     ngOnInit() {
+    //   this.pisos=[{
+    //     "nombre":"piso1",
+    //     "imagen":"assets/primero.jpg"
+    // },{
+    //     "nombre":"piso6",
+    //     "imagen":"assets/dos.jpg"
+
+    // }]
+    this._crud.getPisos().subscribe((data)=>{
+                    this.pisos=data;
+                    console.log(data);
+                });
+
 
         //setup front side canvas
         this.canvas = new fabric.Canvas('canvas', {
@@ -105,6 +120,7 @@ export class SistemaContraIncendiosComponent implements OnInit {
     
         this.canvas.setWidth(this.size.width);
         this.canvas.setHeight(this.size.height);
+
     
         // get references to the html canvas element & its context
         // this.canvas.on('mouse:down', (e) => {
@@ -560,6 +576,7 @@ export class SistemaContraIncendiosComponent implements OnInit {
 
   }
 
+
   loadCanvasFromJSON() {
     let CANVAS = localStorage.getItem('Kanvas');
     console.log('CANVAS');
@@ -580,6 +597,8 @@ export class SistemaContraIncendiosComponent implements OnInit {
 
   };
 
+ 
+
   rasterizeJSON() {
     this.json = JSON.stringify(this.canvas, null, 2);
   }
@@ -591,34 +610,58 @@ export class SistemaContraIncendiosComponent implements OnInit {
   }
 
 
+   // dar
+   cargardesdeJSON(json) {
+    // let CANVAS = localStorage.getItem('Kanvas');
+    // console.log('CANVAS');
+    // console.log(CANVAS);
+
+    // and load everything from the same json
+    this.canvas.loadFromJSON(json, () => {
+      console.log('CANVAS untar');
+      console.log(json);
+
+      // making sure to render canvas at the end
+      this.canvas.renderAll();
+
+      // and checking if object's "name" is preserved
+      console.log('this.canvas.item(0).name');
+      console.log(this.canvas);
+    });
+  }
+  
+  //dar
+  
+
+
 
 
 
     
 
     //----------------------------------fin logica del canvas---------------------
-    pisos:any=[{
-        "nombre":"piso1",
-        "imagen":"assets/primero.jpg"
-    },{
-        "nombre":"piso2",
-        "imagen":"assets/dos.jpg"
+    // pisos:any=[{
+    //     "nombre":"piso1",
+    //     "imagen":"assets/primero.jpg"
+    // },{
+    //     "nombre":"piso2",
+    //     "imagen":"assets/dos.jpg"
 
-    },{
-        "nombre":"piso3",
-        "imagen":"file:///E:/7-8/Domotica-Apps/recursos/Domotica-Req/Sistema-Incendios/1.png"
-    },{
-        "nombre":"piso4",
-        "imagen":"assets/cuatro.jpg"
+    // },{
+    //     "nombre":"piso3",
+    //     "imagen":"assets/tres.jpg"
+    // },{
+    //     "nombre":"piso4",
+    //     "imagen":"assets/cuatro.jpg"
 
-    },{
-        "nombre":"piso5",
-        "imagen":"assets/cinco.jpg"
-    },{
-        "nombre":"piso6",
-        "imagen":"assets/dos.jpg"
+    // },{
+    //     "nombre":"piso5",
+    //     "imagen":"assets/cinco.jpg"
+    // },{
+    //     "nombre":"piso6",
+    //     "imagen":"assets/dos.jpg"
 
-    }]
+    // }]
 
     //----------------------------------Para fondo de imagen-----------------------
     public sanitizeImage(image:string){

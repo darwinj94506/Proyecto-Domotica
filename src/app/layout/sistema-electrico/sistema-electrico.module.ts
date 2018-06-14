@@ -9,6 +9,7 @@ import { SistemaElectricoRoutingModule } from './sistema-electrico-routing.modul
 import { SistemaElectricoComponent } from './sistema-electrico.component';
 import { PageHeaderModule } from './../../shared';
 import{CrudService} from './../../shared/services/crud.service';
+import { AddElectricoComponent } from './add-electrico/add-electrico.component';
 
 
 @NgModule({
@@ -19,7 +20,7 @@ import{CrudService} from './../../shared/services/crud.service';
           SistemaElectricoRoutingModule,
           PageHeaderModule,
           HttpModule],
-    declarations: [SistemaElectricoComponent],
+    declarations: [SistemaElectricoComponent, AddElectricoComponent],
     providers:[CrudService]
 })
 export class SistemaElectricoModule {}

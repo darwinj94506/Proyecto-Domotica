@@ -6,6 +6,9 @@ import { SistemaContraIncendiosRoutingModule } from './sistema-contra-incedios-r
 import { SistemaContraIncendiosComponent } from './sistema-contra-incendios.component';
 import { PageHeaderModule } from './../../shared';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AddIncendiosComponent } from './add-incendios/add-incendios.component';
+import{CrudService} from './../../shared/services/crud.service';
+import { HttpModule} from '@angular/http';
 
 
 @NgModule({
@@ -13,8 +16,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         FormsModule,
         ColorPickerModule,
         NgbModule.forRoot(),
-        SistemaContraIncendiosRoutingModule,
+        SistemaContraIncendiosRoutingModule,HttpModule,
         PageHeaderModule],
-    declarations: [SistemaContraIncendiosComponent]
+    declarations: [SistemaContraIncendiosComponent, AddIncendiosComponent]
+        ,providers:[CrudService]
 })
 export class SistemaContraIncendiosModule {}

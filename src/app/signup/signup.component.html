@@ -2,26 +2,43 @@
     <div class="row justify-content-md-center">
         <div class="col-md-4">
             <img class="user-avatar" src="assets/images/logo.png" width="150px" />
-            <h1>SB Admin BS4 Angular5</h1>
+            <h1>Registrar</h1>
             <form role="form">
                 <div class="form-content">
                     <div class="form-group">
-                        <input type="text" class="form-control input-underline input-lg" id="" placeholder="Full Name">
+                        <input type="text" class="form-control input-underline input-lg" 
+                         placeholder="Nombres Completos" [(ngModel)]="nombre" name="nombre">
+                    </div>
+                    <!-- <div class="form-group">
+                            <input type="text" class="form-control input-underline input-lg" 
+                            id="" placeholder="Nombre de usuario" [(ngModel)]="nombre">
+                        </div> -->
+
+                    <div class="form-group">
+                        <input type="text" class="form-control input-underline input-lg" 
+                        placeholder="Email" [(ngModel)]="email" name="email">
                     </div>
 
                     <div class="form-group">
-                        <input type="text" class="form-control input-underline input-lg" id="" placeholder="Email">
+                        <input type="password" class="form-control input-underline input-lg"
+                          placeholder="Password" [(ngModel)]="clave" name="clave">
                     </div>
+                    <div class="form-group">
+                        <select [(ngModel)]="responsable" name="responsable">
+                            <option [value]="'Gerente'">Gerente</option>
+                            <option [value]="'Tecnico'">Técnico</option>
+                            <option [value]="'Supervisor'">Supervisor</option>      
+                        </select>
 
-                    <div class="form-group">
-                        <input type="password" class="form-control input-underline input-lg" id="" placeholder="Password">
                     </div>
-                    <div class="form-group">
+                  
+                    <!-- <div class="form-group">
                         <input type="password" class="form-control input-underline input-lg" id="" placeholder="Repeat Password">
-                    </div>
+                    </div> -->
                 </div>
-                <a class="btn rounded-btn" [routerLink]="['/dashboard']"> Register </a>&nbsp;
-                <a class="btn rounded-btn" [routerLink]="['/login']"> Log in </a>
+                <a class="btn rounded-btn"  *ngIf="!espiner" (click)="registrar()"> Registrar </a>&nbsp;
+                <a class="btn rounded-btn"  *ngIf="!espiner" [routerLink]="['/login']">Ingresar</a> &nbsp;
+                <a class="btn rounded-btn" *ngIf="espiner">Espere por favor <i class="fa fa-spinner fa-spin"></i> </a>
             </form>
         </div>
     </div>

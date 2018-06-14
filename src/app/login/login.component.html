@@ -2,21 +2,26 @@
     <div class="row justify-content-md-center">
         <div class="col-md-4">
             <img src="assets/images/logo.png" width="150px" class="user-avatar" />
-            <h1>Inicie Sesión como Administrador</h1>
+            <h1>Iniciar Sesión</h1>
             <form role="form">
                 <div class="form-content">
                     <div class="form-group">
                         <input type="text"   [(ngModel)]="email" name="email"
-                            class="form-control input-underline input-lg">
+                            class="form-control input-underline input-lg" placeholder="Email">
                     </div>
 
                     <div class="form-group">
-                        <input type="password" [(ngModel)]="password" name="password"
+                        <input type="password" [(ngModel)]="password" name="password" placeholder="Contraseña"
                         class="form-control input-underline input-lg">
                     </div>
                 </div>
-                <a class="btn rounded-btn"  (click)="onLoggedin()" *ngIf="!espiner"> Ingresar </a>
+                <!-- <a class="btn rounded-btn"  (click)="onLoggedin()" *ngIf="!espiner"> Ingresar </a> -->
+                <a class="btn rounded-btn" *ngIf="!espiner" (click)="onLoggedin()">Ingresar</a>
+
+
                 <a class="btn rounded-btn" *ngIf="espiner">Espere por favor <i class="fa fa-spinner fa-spin"></i> </a>
+                &nbsp;
+                <a class="btn rounded-btn" *ngIf="!espiner" [routerLink]="['/signup']">Registrar</a>
                                 
                 &nbsp;
             </form>

@@ -1,13 +1,12 @@
-
 <div [@routerTransition]>
         <!-- <app-page-header [heading]="'Bootstrap Elements'" [icon]="'fa-desktop'"></app-page-header> -->
     <nav aria-label="breadcrumb">
         <div class="card">
                 <!-- <div class="card-header">Add images</div> -->
             <div class="row">
-                <div class="col-lg-9">
+                <div class="col-lg-10">
                         <div class="card-body max-height">
-                                <img class="images-item" (click)="getImgPolaroid($event)" src="assets/recursos/Sistema-Incendios/1.png">
+                                <!-- <img class="images-item" (click)="getImgPolaroid($event)" src="assets/recursos/Sistema-Incendios/1.png">
                                 <img class="images-item" (click)="getImgPolaroid($event)" src="assets/recursos/Sistema-Incendios/2.png">
                                 <img class="images-item" (click)="getImgPolaroid($event)" src="assets/recursos/Sistema-Incendios/3.png">
                                 <img class="images-item" (click)="getImgPolaroid($event)" src="assets/recursos/Sistema-Incendios/4.png">
@@ -21,23 +20,35 @@
                                 <img class="images-item" (click)="getImgPolaroid($event)" src="assets/recursos/Sistema-Incendios/12.png">
                                 <img class="images-item" (click)="getImgPolaroid($event)" src="assets/recursos/Sistema-Incendios/13.png">
                                 <img class="images-item" (click)="getImgPolaroid($event)" src="assets/recursos/Sistema-Incendios/14.png">
-                                <img class="images-item" (click)="getImgPolaroid($event)" src="assets/recursos/Sistema-Incendios/15.png">                              
-                            </div>
+                                <img class="images-item" (click)="getImgPolaroid($event)" src="assets/recursos/Sistema-Incendios/15.png">                               -->
+                        
+                                <button data-toggle="tooltip" data-placement="bottom" type="button" 
+                                    *ngFor="let piso of pisos" (click)="cargardesdeJSON(piso)"
+                                    class="btn btn-primary">
+                                    <i class="fa fa-fw fa-eye"></i>&nbsp;{{piso.planta.nombre}}
+                                </button>
+                        </div>
 
                 </div>
-                <div class="col-lg-3">
-                    <button data-toggle="tooltip" data-placement="bottom" title="Export to image" type="button" class="btn btn-success" (click)="rasterize();">
-                            <i class="fa fa-download" aria-hidden="true"></i></button>
+                <div class="col-lg-2">
+                    <button data-toggle="tooltip" data-placement="bottom" type="button" 
+                    [routerLink]="['add-incendios']" [routerLinkActive]="['router-link-active']" 
+                        class="btn btn-warning">
+                        <i class="fa fa-fw fa-table"></i>&nbsp;Nuevo
+                    </button>
+                    <!-- <button data-toggle="tooltip" data-placement="bottom" title="Export to image" type="button" class="btn btn-success" (click)="rasterize();">
+                            <i class="fa fa-download" aria-hidden="true"></i></button> -->
                         <!-- <button data-toggle="tooltip" data-placement="bottom" title="Export to SVG" type="button" class="btn btn-primary" (click)="rasterizeSVG();">
                             <i class="fa fa-download" aria-hidden="true"></i> Export to SVG</button> -->
-                        <button data-toggle="tooltip" data-placement="bottom" title="Save in localStorage" type="button" class="btn btn-primary"
-                            (click)="saveCanvasToJSON();">
-                            <i class="fa fa-save" aria-hidden="true"></i></button>
-                        <button data-toggle="tooltip" data-placement="bottom" title="Load from localStorage" type="button" class="btn btn-primary"
-                            (click)="loadCanvasFromJSON();">
-                            <i class="fa fa-save" aria-hidden="true"></i> Cargar</button>
-                        <button data-toggle="tooltip" data-placement="bottom" title="Clean Canvas" type="button" class="btn btn-danger" (click)="confirmClear();">
-                            <i class="fa fa-ban" aria-hidden="true"></i></button>
+                    <!-- <button data-toggle="tooltip" data-placement="bottom" 
+                     title="Save in localStorage" type="button" class="btn btn-primary"
+                        (click)="saveCanvasToJSON();">
+                        <i class="fa fa-save" aria-hidden="true"></i></button> -->
+                    <!-- <button data-toggle="tooltip" data-placement="bottom" title="Load from localStorage" type="button" class="btn btn-primary"
+                        (click)="loadCanvasFromJSON();">
+                        <i class="fa fa-save" aria-hidden="true"></i> Cargar</button> -->
+                    <!-- <button data-toggle="tooltip" data-placement="bottom" title="Clean Canvas" type="button" class="btn btn-danger" (click)="confirmClear();">
+                        <i class="fa fa-ban" aria-hidden="true"></i></button> -->
                 </div>
 
             </div>
@@ -48,9 +59,9 @@
     <div>
 
         <!-- <ngb-tabset type="pills">
-            <ngb-tab title="{{piso.nombre}}" *ngFor="let piso of pisos">
+            <ngb-tab title="{{piso.planta.nombre}}" *ngFor="let piso of pisos">
                 <ng-template ngbTabContent>
-                    <div class="container2" [style.background-image]="sanitizeImage(piso.imagen)" >   -->
+                    <div >   -->
                             <div class="container">
                                     <div class="row">
                                         <!-- <div class="col-xl-12 main-title">
@@ -143,7 +154,7 @@
                                             </div>
                                             <br/> -->
                                             
-                                            <br/>
+                                            <!-- <br/>
                                             <div class="card">
                                                 <div class="card-header">Upload image</div>
                                                 <div class="card-body text-center">
@@ -158,7 +169,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <!-- <br/>
                                             <div class="card">
                                                 <div class="card-header">Add figure</div>
@@ -173,10 +184,10 @@
                                             </div> -->
                                         <!-- </div> -->
                                         <div class="col-xl-10">
-                                            <canvas id="canvas" [style.background-image]="sanitizeImage(url)"></canvas>
+                                            <canvas id="canvas" [style.background-image]="sanitizeImage()"></canvas>
                                         </div>
                                         <div class="col-xl-2">
-                                            <div class="card">
+                                            <!-- <div class="card">
                                                 <div class="card-header">Añadir texto</div>
                                                 <div class="card-body">
                                                     <div class="input-group">
@@ -190,7 +201,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <div class="card">
                                                 <div class="card-header">Opciones</div>
                                                 <div class="card-body text-center">
@@ -355,12 +366,9 @@
 
                     </div>
                 <!-- </ng-template>
-            </ngb-tab>
-                
-                
+            </ngb-tab>       
         </ngb-tabset>
-        
-    </div> -->
+    </div>  -->
         
 </div>
 

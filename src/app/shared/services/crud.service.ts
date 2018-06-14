@@ -15,21 +15,6 @@ export class CrudService{
     }
 
 
-  register(solicitud) {
-    let params=JSON.stringify(solicitud);
-    let headers=new Headers({'Content-Type':'application/json'});
-    return this._http.post(this.url+'User/User_create',params, {headers:headers})
-                      .map( res => res.json());
-    }
-
-
-    signup(user_to_login){
-      
-      let credentials=JSON.stringify(user_to_login);
-      let headers = new Headers({'Content-Type':'application/json'});
-      return this._http.post(this.url+'Users/login',credentials,{headers:headers})
-                      .map(res=>res.json());
-    }
 
     getIdentity(){
       let identity=JSON.parse(localStorage.getItem('identity'));
@@ -130,6 +115,7 @@ export class CrudService{
     return this._http.put(this.url+'categoria/'+id,params, {headers:headers})
                       .map( res => res.json());
   }
+
   subirPdf(files:Array<File>){
     let c=this;
         return new Promise(function(resolve,reject){
@@ -174,12 +160,6 @@ export class CrudService{
                                                           .map(res=>res.json());
   }
 
-
-
-
-
-
-
     // https://apirbo.herokuapp.com/api/categoria
     
  addCategoria(categoria) {
@@ -191,5 +171,106 @@ export class CrudService{
                       .map( res => res.json());
     }
 
+
+
+    //nueva aplicaciono domotica :) ------------------------------------------------------------
+    addPiso(piso){
+      // let params=JSON.stringify(piso);
+      // console.log(params);
+      console.log(this.getToken());
+      let headers=new Headers({'Content-Type':'application/json','Authorization':this.getToken()});
+      return this._http.post(this.url+'sistema_contra_incendios',piso, {headers:headers,})
+      .map( res => res.json());
+    }
+
+    addPisoElectrico(piso){
+      // let params=JSON.stringify(piso);
+      // console.log(params);
+      let headers=new Headers({'Content-Type':'application/json'});
+      return this._http.post(this.url+'sistema_electricos',piso, {headers:headers})
+      .map( res => res.json());
+    }
+
+    getPisosElectricos(){
+      let headers=new Headers({'Content-Type':'application/json','Authorization':this.getToken()});
+
+      return this._http.get(this.url+'sistema_electricos',{headers:headers}).map(res=>res.json());
+    }
+
+    getPisos(){
+      let headers=new Headers({'Content-Type':'application/json','Authorization':this.getToken()});
+
+      return this._http.get(this.url+'sistema_contra_incendios',{headers:headers}).map(res=>res.json());
+
+    }
+
+    
+  register(user) {
+    console.log(user);
+    let params=JSON.stringify(user);
+    let headers=new Headers({'Content-Type':'application/json'});
+    return this._http.post(this.url+'usuarios',headers, {headers:headers})
+                      .map( res => res.json());
+    }
+
+
+    login(user_to_login){
+      
+      let credentials=JSON.stringify(user_to_login);
+      let headers = new Headers({'Content-Type':'application/json'});
+      return this._http.post(this.url+'usuarios/login',credentials,{headers:headers})
+                      .map(res=>res.json());
+    }
+
+    //--------subir fots a los pisos --------------------------//
+
+    editarPiso(piso,id,ruta){
+      // console.log(categoria);
+      if(piso.documentos==null)
+      {
+        piso.documentos=[];
+      }
+      if(ruta!=null){
+        piso.documentos.push(ruta);    
+      }
+      
+      let params=JSON.stringify(piso);
+      console.log("este toquen:"+this.getToken());
+      let headers=new Headers({'Content-Type':'application/json','Authorization':this.getToken()});
+      return this._http.put(this.url+'categoria/'+id,params, {headers:headers})
+                        .map( res => res.json());
+    }
+    
+    subirImagen(files:Array<File>){
+      let c=this;
+          return new Promise(function(resolve,reject){
+            // let headers=new Headers({'Content-Type':'application/json','Authorization':this.getToken()});
+
+            var formData:any=new FormData();
+            var xhr=new XMLHttpRequest();
+            if(files!=undefined){
+              for(var i=0;i<files.length;i++){
+                formData.append("archivo",files[i],files[i].name);
+              }
+            }
+            xhr.onreadystatechange=function(){
+              if(xhr.readyState==4){
+                if(xhr.status==200){
+                  resolve(JSON.parse(xhr.response));
+                  
+                }else{
+                  reject(xhr.response);
+                }
+              }
+            }    
+            xhr.open('POST',c.url+"containers/electricos-img/upload",
+                true);
+
+                // POST /containers/{container}/upload
+
+            ///containers/{container}/upload
+            xhr.send(formData);
+          })        
+    }
 
 }

@@ -22,13 +22,15 @@ export class LoginComponent implements OnInit {
         console.log(this.password);
         console.log(this.email);
         this.espiner=true;
-        this._crudService.signup({'email':this.email,'password':this.password})
+        this._crudService.login({'email':this.email,'password':this.password})
                 .subscribe(data=>{
                     if(data){
                         this.espiner=false;
                         localStorage.setItem('isLoggedin','true');
                         localStorage.setItem('identity', JSON.stringify(data));
-                        this.router.navigate(['/tables']);    
+                        localStorage.setItem('user',JSON.stringify(this.email));
+                        localStorage.setItem('password',JSON.stringify(this.password));
+                        this.router.navigate(['/sistema-incendios']);    
                     }
                     
                     console.log(data)
