@@ -57,7 +57,7 @@ export class SistemaContraIncendiosComponent implements OnInit {
     //     "imagen":"assets/dos.jpg"
 
     // }]
-    this._crud.getPisos().subscribe((data)=>{
+    this._crud.getPisosIncendios().subscribe((data)=>{
                     this.pisos=data;
                     console.log(data);
                 });
@@ -77,8 +77,8 @@ export class SistemaContraIncendiosComponent implements OnInit {
     
             let selectedObject = e.target;
             this.selected = selectedObject
-            selectedObject.hasRotatingPoint = true;
-            selectedObject.transparentCorners = false;
+            selectedObject.hasRotatingPoint = false;
+            selectedObject.transparentCorners = true;
             // selectedObject.cornerColor = 'rgba(255, 87, 34, 0.7)';
     
             this.resetPanels();
@@ -107,6 +107,7 @@ export class SistemaContraIncendiosComponent implements OnInit {
                   this.getFontFamily();
                   break;
                 case 'image':
+                  console.log(selectedObject);
                   console.log('image');
                   break;
               }
@@ -372,6 +373,7 @@ export class SistemaContraIncendiosComponent implements OnInit {
 
   getId() {
     this.props.id = this.canvas.getActiveObject().toObject().id;
+    alert(this.props.id);
   }
 
   setId() {
@@ -611,59 +613,19 @@ export class SistemaContraIncendiosComponent implements OnInit {
 
 
    // dar
+   public fondoDeCanvas:any;
    cargardesdeJSON(json) {
-    // let CANVAS = localStorage.getItem('Kanvas');
-    // console.log('CANVAS');
-    // console.log(CANVAS);
-
-    // and load everything from the same json
+ 
     this.canvas.loadFromJSON(json, () => {
-      console.log('CANVAS untar');
-      console.log(json);
+      this.fondoDeCanvas=this.sanitizeImage('http://localhost:3000/api'+json.planta.img);
 
-      // making sure to render canvas at the end
       this.canvas.renderAll();
-
-      // and checking if object's "name" is preserved
-      console.log('this.canvas.item(0).name');
-      console.log(this.canvas);
+    
     });
   }
   
   //dar
   
-
-
-
-
-
-    
-
-    //----------------------------------fin logica del canvas---------------------
-    // pisos:any=[{
-    //     "nombre":"piso1",
-    //     "imagen":"assets/primero.jpg"
-    // },{
-    //     "nombre":"piso2",
-    //     "imagen":"assets/dos.jpg"
-
-    // },{
-    //     "nombre":"piso3",
-    //     "imagen":"assets/tres.jpg"
-    // },{
-    //     "nombre":"piso4",
-    //     "imagen":"assets/cuatro.jpg"
-
-    // },{
-    //     "nombre":"piso5",
-    //     "imagen":"assets/cinco.jpg"
-    // },{
-    //     "nombre":"piso6",
-    //     "imagen":"assets/dos.jpg"
-
-    // }]
-
-    //----------------------------------Para fondo de imagen-----------------------
     public sanitizeImage(image:string){
         return this._sanitizer.bypassSecurityTrustStyle(`url(${image})`);
 

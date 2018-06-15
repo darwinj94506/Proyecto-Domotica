@@ -194,9 +194,14 @@ addImageOnCanvas(url) {
  }
 }
 
+public filesToUpload;
 readUrl(event) {
  if (event.target.files && event.target.files[0]) {
    var reader = new FileReader();
+    //aumento
+    this.filesToUpload=<Array<File>>event.target.files;    
+    console.log(this.filesToUpload);
+    //
    reader.onload = (event) => {
      this.url = event.target['result'];
      console.log(this.url);
@@ -560,32 +565,36 @@ rasterizeSVG() {
 
 saveCanvasToJSON() {
   console.log(this.canvas);
-// let piso={
-//   planta:{
-//     nombre:'darwin',
-//     img:this.url
-//   },
+
   let json=JSON.stringify(this.canvas);
   let json2=JSON.parse(json);
   let objects=json2.objects;
-  
-  let piso={
-   planta:{
-     nombre:'darwin'
-    //  img:this.url
-   },
-   objects:objects
-  }
-  console.log(piso);
+  //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  this._crud.subirImagenIncendios(this.filesToUpload).then((n:any)=>{
+    console.log(n);
+    console.log("ggg",n.result.files.archivo[0].name);
+    alert("subio la imagen");
+    let ob:any={};
+    // "containers/incendios-img/upload"
+    ob.ruta='/containers/incendios-img/download/'+n.result.files.archivo[0].name;
+    ob.nombre=n.result.files.archivo[0].originalFilename;
+    
+    let json2=JSON.parse(json);
+    let objects=json2.objects;
+    
+    let piso={
+     planta:{
+       nombre:'darwin',
+       img:ob.ruta,
+     },
+     objects:objects
+    }
+    this._crud.addPisoIncendios(JSON.stringify(piso)).subscribe(()=>{alert('guardo piso')});
+    
+  })
 
-this._crud.addPiso(JSON.stringify(piso)).subscribe(()=>{alert('guardo')});
 
-
-//  let json = JSON.stringify(this.canvas);
-  
-//  localStorage.setItem('Kanvas', json);
-//  console.log('json');
-//  console.log(json);
+  //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 }
 
@@ -622,32 +631,7 @@ resetPanels() {
 
 
 
-
- 
-
  //----------------------------------fin logica del canvas---------------------
- pisos:any=[{
-     "nombre":"piso1",
-     "imagen":"assets/primero.jpg"
- },{
-     "nombre":"piso2",
-     "imagen":"assets/dos.jpg"
-
- },{
-     "nombre":"piso3",
-     "imagen":"file:///E:/7-8/Domotica-Apps/recursos/Domotica-Req/Sistema-Incendios/1.png"
- },{
-     "nombre":"piso4",
-     "imagen":"assets/cuatro.jpg"
-
- },{
-     "nombre":"piso5",
-     "imagen":"assets/cinco.jpg"
- },{
-     "nombre":"piso6",
-     "imagen":"assets/dos.jpg"
-
- }]
 
  //----------------------------------Para fondo de imagen-----------------------
  public sanitizeImage(image:string){

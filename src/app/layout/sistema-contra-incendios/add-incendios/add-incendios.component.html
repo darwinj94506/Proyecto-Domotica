@@ -25,16 +25,17 @@
 
           </div>
           <div class="col-lg-3">
-              <button data-toggle="tooltip" data-placement="bottom" title="Export to image" type="button" class="btn btn-success" (click)="rasterize();">
-                      <i class="fa fa-download" aria-hidden="true"></i></button>
+              <!-- <button data-toggle="tooltip" data-placement="bottom" title="Export to image" type="button" class="btn btn-success" (click)="rasterize();">
+                      <i class="fa fa-download" aria-hidden="true"></i></button> -->
                   <!-- <button data-toggle="tooltip" data-placement="bottom" title="Export to SVG" type="button" class="btn btn-primary" (click)="rasterizeSVG();">
                       <i class="fa fa-download" aria-hidden="true"></i> Export to SVG</button> -->
-                  <button data-toggle="tooltip" data-placement="bottom" title="Save in localStorage" type="button" class="btn btn-primary"
+                  <button data-toggle="tooltip" data-placement="bottom" [disabled]="url==null || url==''"
+                    title="Guardar" type="button" class="btn btn-primary"
                       (click)="saveCanvasToJSON();">
                       <i class="fa fa-save" aria-hidden="true"></i></button>
-                  <button data-toggle="tooltip" data-placement="bottom" title="Load from localStorage" type="button" class="btn btn-primary"
+                  <!-- <button data-toggle="tooltip" data-placement="bottom" title="Load from localStorage" type="button" class="btn btn-primary"
                       (click)="loadCanvasFromJSON();">
-                      <i class="fa fa-save" aria-hidden="true"></i> Cargar</button>
+                      <i class="fa fa-save" aria-hidden="true"></i> Cargar</button> -->
                   <button data-toggle="tooltip" data-placement="bottom" title="Clean Canvas" type="button" class="btn btn-danger" (click)="confirmClear();">
                       <i class="fa fa-ban" aria-hidden="true"></i></button>
           </div>

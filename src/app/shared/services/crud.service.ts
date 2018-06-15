@@ -174,7 +174,7 @@ export class CrudService{
 
 
     //nueva aplicaciono domotica :) ------------------------------------------------------------
-    addPiso(piso){
+    addPisoIncendios(piso){
       // let params=JSON.stringify(piso);
       // console.log(params);
       console.log(this.getToken());
@@ -197,7 +197,7 @@ export class CrudService{
       return this._http.get(this.url+'sistema_electricos',{headers:headers}).map(res=>res.json());
     }
 
-    getPisos(){
+    getPisosIncendios(){
       let headers=new Headers({'Content-Type':'application/json','Authorization':this.getToken()});
 
       return this._http.get(this.url+'sistema_contra_incendios',{headers:headers}).map(res=>res.json());
@@ -241,7 +241,7 @@ export class CrudService{
                         .map( res => res.json());
     }
     
-    subirImagen(files:Array<File>){
+    subirImagenElectrico(files:Array<File>){
       let c=this;
           return new Promise(function(resolve,reject){
             // let headers=new Headers({'Content-Type':'application/json','Authorization':this.getToken()});
@@ -264,6 +264,37 @@ export class CrudService{
               }
             }    
             xhr.open('POST',c.url+"containers/electricos-img/upload",
+                true);
+
+                // POST /containers/{container}/upload
+
+            ///containers/{container}/upload
+            xhr.send(formData);
+          })        
+    }
+    subirImagenIncendios(files:Array<File>){
+      let c=this;
+          return new Promise(function(resolve,reject){
+            // let headers=new Headers({'Content-Type':'application/json','Authorization':this.getToken()});
+
+            var formData:any=new FormData();
+            var xhr=new XMLHttpRequest();
+            if(files!=undefined){
+              for(var i=0;i<files.length;i++){
+                formData.append("archivo",files[i],files[i].name);
+              }
+            }
+            xhr.onreadystatechange=function(){
+              if(xhr.readyState==4){
+                if(xhr.status==200){
+                  resolve(JSON.parse(xhr.response));
+                  
+                }else{
+                  reject(xhr.response);
+                }
+              }
+            }    
+            xhr.open('POST',c.url+"containers/incendios-img/upload",
                 true);
 
                 // POST /containers/{container}/upload

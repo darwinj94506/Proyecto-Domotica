@@ -97,6 +97,7 @@ export class AddElectricoComponent implements OnInit {
                 this.getFontFamily();
                 break;
               case 'image':
+                console.log(selectedObject);
                 console.log('image');
                 break;
             }
@@ -575,8 +576,8 @@ export class AddElectricoComponent implements OnInit {
  saveCanvasToJSON() {
 //primero subir la imagen al servidor
 console.log(this.filesToUpload);
-
-  this._crud.subirImagen(this.filesToUpload).then((n:any)=>{
+let json=JSON.stringify(this.canvas);
+  this._crud.subirImagenElectrico(this.filesToUpload).then((n:any)=>{
     console.log(n);
     console.log("ggg",n.result.files.archivo[0].name);
     alert("subio la imagen");
@@ -598,22 +599,6 @@ console.log(this.filesToUpload);
     this._crud.addPisoElectrico(JSON.stringify(piso)).subscribe(()=>{alert('guardo piso')});
     
   })
-  
-
-
-
-
-   let json=JSON.stringify(this.canvas);
-  //  console.log(piso);
- 
- 
- 
- //  let json = JSON.stringify(this.canvas);
-   
- //  localStorage.setItem('Kanvas', json);
- //  console.log('json');
- //  console.log(json);
- 
  }
  
  loadCanvasFromJSON() {
@@ -648,55 +633,9 @@ console.log(this.filesToUpload);
  
  
  
- 
- 
-  
- 
-  //----------------------------------fin logica del canvas---------------------
-  pisos:any=[{
-      "nombre":"piso1",
-      "imagen":"assets/primero.jpg"
-  },{
-      "nombre":"piso2",
-      "imagen":"assets/dos.jpg"
- 
-  },{
-      "nombre":"piso3",
-      "imagen":"file:///E:/7-8/Domotica-Apps/recursos/Domotica-Req/Sistema-Incendios/1.png"
-  },{
-      "nombre":"piso4",
-      "imagen":"assets/cuatro.jpg"
- 
-  },{
-      "nombre":"piso5",
-      "imagen":"assets/cinco.jpg"
-  },{
-      "nombre":"piso6",
-      "imagen":"assets/dos.jpg"
- 
-  }]
- 
   //----------------------------------Para fondo de imagen-----------------------
   public sanitizeImage(image:string){
       return this._sanitizer.bypassSecurityTrustStyle(`url(${image})`);
  
-  }
-  private rutadeImagen:any=undefined;
-
-  //subir imagen de piso
-  subirNoticia(){
-    // let cat:any=this.idCategoria;
-    // this.espiner=true;
-    this._crud.subirImagen(this.filesToUpload).then((n:any)=>{
-      console.log(n);
-    console.log("ggg",n.result.files.archivo[0].name);
-    let ob:any={};
-    // "containers/incendios-img/upload"
-    ob.ruta='/containers/incendios-img/download/'+n.result.files.archivo[0].name;
-    ob.nombre=n.result.files.archivo[0].originalFilename;
-    //   this._crud.editarCategoria(this.categoria,this.idCategoria,ob)
-    //           .subscribe(()=>this.espiner=false);
-    // });
-    })
   }
 }

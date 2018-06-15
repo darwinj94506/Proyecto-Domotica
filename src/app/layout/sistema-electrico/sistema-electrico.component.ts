@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,ViewChild,ElementRef, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
 import{CrudService} from './../../shared/services/crud.service';
 import 'fabric';
@@ -12,6 +12,7 @@ declare const fabric: any;
     animations: [routerTransition()]
 })
 export class SistemaElectricoComponent implements OnInit {
+  @ViewChild('fondoCanvas') fondoCanvas: ElementRef;
     
     
     
@@ -615,6 +616,8 @@ export class SistemaElectricoComponent implements OnInit {
   
   
      // dar
+
+     public fondoDeCanvas:any;
      cargardesdeJSON(json) {
       // let CANVAS = localStorage.getItem('Kanvas');
       // console.log('CANVAS');
@@ -623,20 +626,13 @@ export class SistemaElectricoComponent implements OnInit {
       // and load everything from the same json
       this.canvas.loadFromJSON(json, () => {
         console.log('CANVAS untar');
-        console.log(json);
+        
         console.log(json.planta.img);
-        //<<<<<<<<<<<<<<<<<<<<
-        let self = this;
-        this.props.canvasImage='http://localhost:3000/api'+json.planta.img;
-        if (this.props.canvasImage) {
-          this.canvas.setBackgroundColor({ source: this.props.canvasImage}, function () {
-            // self.props.canvasFill = '';
-            self.canvas.renderAll();
-          });
-        }
-        //<<<<<<<<<<<<<<<<<<<<
-        // this.url='http://localhost:3000/api'+json.planta.img;
+        this.fondoDeCanvas=this.sanitizeImage('http://localhost:3000/api'+json.planta.img);
+
+        
         console.log(this.url);
+
   
         // making sure to render canvas at the end
         this.canvas.renderAll();
