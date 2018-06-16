@@ -50,14 +50,7 @@ export class SistemaElectricoComponent implements OnInit {
       private selected: any;
       public pisos:any;
       ngOnInit() {
-      //   this.pisos=[{
-      //     "nombre":"piso1",
-      //     "imagen":"assets/primero.jpg"
-      // },{
-      //     "nombre":"piso6",
-      //     "imagen":"assets/dos.jpg"
-  
-      // }]
+      
       this._crud.getPisosElectricos().subscribe((data)=>{
                       this.pisos=data;
                       console.log(data);
@@ -67,19 +60,28 @@ export class SistemaElectricoComponent implements OnInit {
           //setup front side canvas
           this.canvas = new fabric.Canvas('canvas', {
             hoverCursor: 'pointer',
-            selection: true,
+            selection: false,
             selectionBorderColor: 'blue'
           });
+          console.log(this.canvas);
       
           this.canvas.on({
-            'object:moving': (e) => { },
+            'object:moving': (e) => {
+              let selectedObject = e.target;
+              // this.selected = selectedObject;
+              // selectedObject.lockMovementX = true;
+              // selectedObject.lockMovementY = true;
+
+             },
             'object:modified': (e) => { },
             'object:selected': (e) => {
       
               let selectedObject = e.target;
               this.selected = selectedObject
-              selectedObject.hasRotatingPoint = true;
-              selectedObject.transparentCorners = false;
+              // console.log(e);
+              console.log(selectedObject);
+              selectedObject.hasRotatingPoint = false;
+              selectedObject.transparentCorners = true;
               // selectedObject.cornerColor = 'rgba(255, 87, 34, 0.7)';
       
               this.resetPanels();
@@ -108,7 +110,10 @@ export class SistemaElectricoComponent implements OnInit {
                     this.getFontFamily();
                     break;
                   case 'image':
-                    console.log('image');
+                    selectedObject.lockMovementX = true;
+                    selectedObject.lockMovementY = true;
+                    this.cleanSelect();
+
                     break;
                 }
               }
@@ -376,7 +381,10 @@ export class SistemaElectricoComponent implements OnInit {
     }
   
     getId() {
-      this.props.id = this.canvas.getActiveObject().toObject().id;
+      console.log(this.canvas.getActiveObject().id);
+      // this.props.id = this.canvas.getActiveObject().toObject().id; antes
+      this.props.id = this.canvas.getActiveObject().id;
+
     }
   
     setId() {
@@ -644,38 +652,7 @@ export class SistemaElectricoComponent implements OnInit {
     }
     
     //dar
-    
-  
-  
-  
-  
-  
-      
-  
-      //----------------------------------fin logica del canvas---------------------
-      // pisos:any=[{
-      //     "nombre":"piso1",
-      //     "imagen":"assets/primero.jpg"
-      // },{
-      //     "nombre":"piso2",
-      //     "imagen":"assets/dos.jpg"
-  
-      // },{
-      //     "nombre":"piso3",
-      //     "imagen":"assets/tres.jpg"
-      // },{
-      //     "nombre":"piso4",
-      //     "imagen":"assets/cuatro.jpg"
-  
-      // },{
-      //     "nombre":"piso5",
-      //     "imagen":"assets/cinco.jpg"
-      // },{
-      //     "nombre":"piso6",
-      //     "imagen":"assets/dos.jpg"
-  
-      // }]
-  
+
       //----------------------------------Para fondo de imagen-----------------------
       public sanitizeImage(image:string){
           return this._sanitizer.bypassSecurityTrustStyle(`url(${image})`);

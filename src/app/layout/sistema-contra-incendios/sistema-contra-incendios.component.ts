@@ -107,8 +107,11 @@ export class SistemaContraIncendiosComponent implements OnInit {
                   this.getFontFamily();
                   break;
                 case 'image':
-                  console.log(selectedObject);
-                  console.log('image');
+                selectedObject.lockMovementX = true;
+                selectedObject.lockMovementY = true;
+                this.cleanSelect();
+
+                  
                   break;
               }
             }
@@ -372,8 +375,8 @@ export class SistemaContraIncendiosComponent implements OnInit {
   }
 
   getId() {
-    this.props.id = this.canvas.getActiveObject().toObject().id;
-    alert(this.props.id);
+    this.props.id = this.canvas.getActiveObject().id;
+    // alert(this.props.id);
   }
 
   setId() {
