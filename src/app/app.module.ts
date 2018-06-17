@@ -16,6 +16,8 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireStorageModule } from 'angularfire2/storage';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 
 
@@ -36,6 +38,7 @@ export function createTranslateLoader(http: HttpClient) {
         // AngularFireModule.initializeApp(environment.firebase),   
         AngularFirestoreModule, // imports firebase/firestore, only needed for database features
         AngularFireStorageModule,
+        NgbModule.forRoot(),
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,

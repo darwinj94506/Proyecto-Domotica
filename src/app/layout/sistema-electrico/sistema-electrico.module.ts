@@ -16,7 +16,7 @@ import { AddElectricoComponent } from './add-electrico/add-electrico.component';
     imports: [CommonModule,
           FormsModule,
           ColorPickerModule,
-          NgbModule.forRoot(),
+          NgbModule,
           SistemaElectricoRoutingModule,
           PageHeaderModule,
           HttpModule],

@@ -4,6 +4,12 @@ import{CrudService} from './../../shared/services/crud.service';
 import 'fabric';
 import{DomSanitizer} from '@angular/platform-browser';
 declare const fabric: any;
+import{GLOBAL} from './../../shared/services/global';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+
+
+
 
 @Component({
     selector: 'app-grid',
@@ -12,11 +18,41 @@ declare const fabric: any;
     animations: [routerTransition()]
 })
 export class SistemaElectricoComponent implements OnInit {
+  closeResult: string;
+
   @ViewChild('fondoCanvas') fondoCanvas: ElementRef;
+  @ViewChild('content') content: ElementRef;
+
     
     
-    
-    constructor(private _sanitizer:DomSanitizer,private _crud:CrudService) {}
+    public URLGLOBAL;
+    public URLIMAGEN;
+    constructor(private _sanitizer:DomSanitizer,private _crud:CrudService,private modalService: NgbModal){
+      this.URLGLOBAL=GLOBAL.url;
+      this.URLIMAGEN=GLOBAL.urlImagen;
+      console.log(this.URLIMAGEN);
+      // alert(this.URLGLOBAL);
+    }
+
+    //xxxxxxxxxxxxxxxxxxx
+    open(content) {
+      this.modalService.open(content).result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
+    }
+  
+    private getDismissReason(reason: any): string {
+      if (reason === ModalDismissReasons.ESC) {
+        return 'by pressing ESC';
+      } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+        return 'by clicking on a backdrop';
+      } else {
+        return  `with: ${reason}`;
+      }
+    }
+    //xxxxxxxxxxxxxxxxxxx
       //----------------------------------logica del canvas-------------------------
       private canvas: any;
       private props: any = {
@@ -75,6 +111,7 @@ export class SistemaElectricoComponent implements OnInit {
              },
             'object:modified': (e) => { },
             'object:selected': (e) => {
+              this.open(this.content);
       
               let selectedObject = e.target;
               this.selected = selectedObject
@@ -112,7 +149,111 @@ export class SistemaElectricoComponent implements OnInit {
                   case 'image':
                     selectedObject.lockMovementX = true;
                     selectedObject.lockMovementY = true;
-                    this.cleanSelect();
+                    // this.cleanSelect();
+                    console.log(this.canvas);
+                    let id=selectedObject.id;
+                    let self=this;
+                    this.json2.objects.forEach(element => {
+                      if(element.id==id){
+                        // console.log(element);
+                        // element.src=this.URLIMAGEN+'assets/recursos/Sistema-Electrico/1.1.png';
+
+                        // console.log(element.src);
+                        // console.log( this.URLIMAGEN+'assets/recursos/Sistema-Electrico/1.png');
+                        // if( this.URLIMAGEN+'assets/recursos/Sistema-Electrico/1.png'==element.src){
+                        //   alert('aaaaaaaaa');
+
+                        // }
+                        switch(element.src){
+                          case this.URLIMAGEN+'assets/recursos/Sistema-Electrico/1.png':
+                          // console.log("XXXXXXXXXXXXXXXXXXXXXXXX");
+                          element.src=this.URLIMAGEN+'assets/recursos/Sistema-Electrico/1.1.png';
+                          break;
+                          case this.URLIMAGEN+'assets/recursos/Sistema-Electrico/1.1.png':
+                          // alert('bb');
+                          element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/1.png";
+                          break;
+                          case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/2.png":
+                          element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/2.1.png";
+
+                          break;
+                          case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/2.1.png":
+                          element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/2.png";
+
+                          break;
+                          case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/3.png":
+                          element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/3.1.png";
+
+                          break;
+                          case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/3.1.png":
+                          element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/3.png";
+
+                          break;
+                          case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/4.png":
+                          element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/4.1.png";
+
+                          break;
+                          case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/4.1png":
+                          element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/4.png";
+
+                          break;
+                          case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/5.png":
+                          element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/5.1.png";
+
+                          break;
+                          case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/5.1.png":
+                          element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/5.png";
+
+                          break;
+                          case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/6.png":
+                          element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/6.1.png";
+
+                          break;
+                          case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/6.1.png":
+                          element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/6.png";
+
+                          break;
+                          case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/7.png":
+                          element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/7.1.png";
+
+                          break;
+                          case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/7.1.png":
+                          element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/7.png";
+
+                          break;
+                          case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/8.png":
+                          element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/8.1.png";
+
+                          break;
+                          case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/8.1png":
+                          element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/8.png";
+
+                          break;
+                          case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/9.png":
+                          element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/9.1.png";
+
+                          break;
+                          case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/9.1png":
+                          element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/9.png";
+
+                          break;
+
+                        }
+                        // element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/1.png";
+                        this.canvas.loadFromJSON(this.json2, () => {
+                          this.fondoDeCanvas=this.sanitizeImage(this.URLGLOBAL+this.json2.planta.img);
+                          this.canvas.renderAll();
+                        });
+                        return;
+                      }
+                      
+                    });
+
+                    // this.canvas.item(0).set({src:'http://localhost:4200/assets/recursos/Sistema-Electrico/1.png'})
+                    // this.canvas.setActiveObject(this.canvas.item(0));
+                    // this.canvas.setActiveObject(selectedObject);
+                    // this.canvas.renderAll();
+                   
 
                     break;
                 }
@@ -386,6 +527,19 @@ export class SistemaElectricoComponent implements OnInit {
       this.props.id = this.canvas.getActiveObject().id;
 
     }
+    //darwin{}
+    setImage(){
+      
+      let val = this.props.id;
+      let complete = this.canvas.getActiveObject().toObject();
+      console.log(complete);
+      this.canvas.getActiveObject().toObject = () => {
+        complete.id = val;
+        return complete;
+      };
+    
+  
+    }
   
     setId() {
       let val = this.props.id;
@@ -626,28 +780,14 @@ export class SistemaElectricoComponent implements OnInit {
      // dar
 
      public fondoDeCanvas:any;
+     json2:any;
      cargardesdeJSON(json) {
-      // let CANVAS = localStorage.getItem('Kanvas');
-      // console.log('CANVAS');
-      // console.log(CANVAS);
-  
-      // and load everything from the same json
+       this.json2=json;
+     
       this.canvas.loadFromJSON(json, () => {
-        console.log('CANVAS untar');
-        
-        console.log(json.planta.img);
-        this.fondoDeCanvas=this.sanitizeImage('http://localhost:3000/api'+json.planta.img);
-
-        
-        console.log(this.url);
-
-  
+        this.fondoDeCanvas=this.sanitizeImage(this.URLGLOBAL+json.planta.img);
         // making sure to render canvas at the end
         this.canvas.renderAll();
-  
-        // and checking if object's "name" is preserved
-        console.log('this.canvas.item(0).name');
-        console.log(this.canvas);
       });
     }
     
