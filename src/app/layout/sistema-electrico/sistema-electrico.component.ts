@@ -22,6 +22,8 @@ export class SistemaElectricoComponent implements OnInit {
 
   @ViewChild('fondoCanvas') fondoCanvas: ElementRef;
   @ViewChild('content') content: ElementRef;
+  public color: string = 'rgb(0, 255, 255)';
+
 
     
     
@@ -111,7 +113,6 @@ export class SistemaElectricoComponent implements OnInit {
              },
             'object:modified': (e) => { },
             'object:selected': (e) => {
-              this.open(this.content);
       
               let selectedObject = e.target;
               this.selected = selectedObject
@@ -155,22 +156,14 @@ export class SistemaElectricoComponent implements OnInit {
                     let self=this;
                     this.json2.objects.forEach(element => {
                       if(element.id==id){
-                        // console.log(element);
-                        // element.src=this.URLIMAGEN+'assets/recursos/Sistema-Electrico/1.1.png';
-
-                        // console.log(element.src);
-                        // console.log( this.URLIMAGEN+'assets/recursos/Sistema-Electrico/1.png');
-                        // if( this.URLIMAGEN+'assets/recursos/Sistema-Electrico/1.png'==element.src){
-                        //   alert('aaaaaaaaa');
-
-                        // }
+                        
+                       
                         switch(element.src){
                           case this.URLIMAGEN+'assets/recursos/Sistema-Electrico/1.png':
-                          // console.log("XXXXXXXXXXXXXXXXXXXXXXXX");
                           element.src=this.URLIMAGEN+'assets/recursos/Sistema-Electrico/1.1.png';
                           break;
                           case this.URLIMAGEN+'assets/recursos/Sistema-Electrico/1.1.png':
-                          // alert('bb');
+                    
                           element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/1.png";
                           break;
                           case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/2.png":
@@ -190,13 +183,12 @@ export class SistemaElectricoComponent implements OnInit {
 
                           break;
                           case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/4.png":
-                          element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/4.1.png";
+                          // element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/4.1.png";
+                          this.open(this.content);
+
 
                           break;
-                          case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/4.1png":
-                          element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/4.png";
-
-                          break;
+                         
                           case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/5.png":
                           element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/5.1.png";
 
@@ -206,13 +198,11 @@ export class SistemaElectricoComponent implements OnInit {
 
                           break;
                           case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/6.png":
-                          element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/6.1.png";
+                          // element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/6.1.png";
+                          this.open(this.content);
 
                           break;
-                          case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/6.1.png":
-                          element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/6.png";
-
-                          break;
+                        
                           case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/7.png":
                           element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/7.1.png";
 
@@ -222,28 +212,44 @@ export class SistemaElectricoComponent implements OnInit {
 
                           break;
                           case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/8.png":
-                          element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/8.1.png";
+                          // element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/8.1.png";
+                          this.open(this.content);
 
                           break;
-                          case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/8.1png":
-                          element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/8.png";
+                         
+                          // case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/9.png":
+                          // element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/9.1.png";
+
+                          // break;
+                          // case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/9.1png":
+                          // element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/9.png";
+
+                          // break;
+                          case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/11.png":
+                          // element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/9.png";
+                          this.open(this.content);
 
                           break;
-                          case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/9.png":
-                          element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/9.1.png";
-
-                          break;
-                          case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/9.1png":
-                          element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/9.png";
+                          case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/12.png":
+                          // element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/9.png";
+                          this.open(this.content);
 
                           break;
 
                         }
-                        // element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/1.png";
-                        this.canvas.loadFromJSON(this.json2, () => {
-                          this.fondoDeCanvas=this.sanitizeImage(this.URLGLOBAL+this.json2.planta.img);
-                          this.canvas.renderAll();
-                        });
+                        if(element.scr!=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/8.png" ||
+                            element.src!=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/4.png" ||
+                           element.src!=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/6.png" ||
+                          element.src!=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/11.png"||
+                          element.src!=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/12.png"){
+                          this.canvas.loadFromJSON(this.json2, () => {
+                            this.fondoDeCanvas=this.sanitizeImage(this.URLGLOBAL+this.json2.planta.img);
+                            this.canvas.renderAll();
+                          });
+
+                        }
+  
+                        
                         return;
                       }
                       

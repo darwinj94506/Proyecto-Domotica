@@ -376,14 +376,14 @@
     <div>
             <ng-template #content let-c="close" let-d="dismiss">
                     <div class="modal-header">
-                      <h4 class="modal-title">Profile update</h4>
+                      <h4 class="modal-title">Seleccione un color</h4>
                       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
                     <div class="modal-body">
                       <form>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                           <label for="dateOfBirth">Date of birth</label>
                           <div class="input-group">
                             <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">
@@ -392,9 +392,22 @@
                                 <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
                               </button>
                             </div>
-                            <input type="color" name="favcolor" value="#ff0000">
+
 
                           </div>
+                        </div> -->
+                        <div class="form-group">
+                            <label for="dateOfBirth">Color</label>
+                            <div class="input-group">
+                                <input [value]="color"
+                                [style.background]="color"
+                                [cpOKButton]="true"
+                                [cpSaveClickOutside]="false"
+                                [cpOKButtonClass]= "'btn btn-primary btn-xs'"
+                                [(colorPicker)]="color"/>      
+
+                            </div>
+                            
                         </div>
                       </form>
                     </div>
