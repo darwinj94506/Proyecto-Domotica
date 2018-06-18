@@ -8,7 +8,7 @@ import{GLOBAL} from './../../shared/services/global';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
-
+// import{NgbProgressbarConfig} from 'ngx-color-picker';
 
 
 @Component({
@@ -30,11 +30,17 @@ export class SistemaElectricoComponent implements OnInit {
     
     public URLGLOBAL;
     public URLIMAGEN;
-    constructor(private _sanitizer:DomSanitizer,private _crud:CrudService,private modalService: NgbModal){
+    constructor(private _sanitizer:DomSanitizer,config: NgbProgressbarConfig,
+      private _crud:CrudService,private modalService: NgbModal){
+        //configuracion de progress bar
+        config.max = 100;
+        config.striped = true;
+        config.animated = true;
+        config.type = 'primary';
+        config.height = '20px';
+        //Configuracion de de url
       this.URLGLOBAL=GLOBAL.url;
       this.URLIMAGEN=GLOBAL.urlImagen;
-      console.log(this.URLIMAGEN);
-      // alert(this.URLGLOBAL);
     }
 
     //xxxxxxxxxxxxxxxxxxx
