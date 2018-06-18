@@ -22,6 +22,7 @@ export class SistemaElectricoComponent implements OnInit {
 
   @ViewChild('fondoCanvas') fondoCanvas: ElementRef;
   @ViewChild('content') content: ElementRef;
+  @ViewChild('contentCisterna') contentCisterna: ElementRef;
   public color: string = 'rgb(0, 255, 255)';
 
 
@@ -213,7 +214,7 @@ export class SistemaElectricoComponent implements OnInit {
                           break;
                           case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/8.png":
                           // element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/8.1.png";
-                          this.open(this.content);
+                          this.open(this.contentCisterna);
 
                           break;
                          
