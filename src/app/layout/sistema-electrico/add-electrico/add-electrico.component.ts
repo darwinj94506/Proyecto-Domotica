@@ -1,12 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,ViewChild,ElementRef, OnInit } from '@angular/core';
 import { routerTransition } from '../../../router.animations';
 
 import{DomSanitizer} from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import{CrudService} from './../../../shared/services/crud.service';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+
 
 import 'fabric';
 declare const fabric: any;
+
+
 
 
 @Component({
@@ -17,8 +21,18 @@ declare const fabric: any;
 
 })
 export class AddElectricoComponent implements OnInit {
+  @ViewChild('errorAutorizacion') errorAutorizacion: ElementRef;
+  closeResult: string;
 
-  constructor(private _sanitizer:DomSanitizer,private _crud:CrudService) { }
+
+  constructor(private _sanitizer:DomSanitizer,private _crud:CrudService,private modalService: NgbModal) { }
+  open(content) {
+    this.modalService.open(content).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
 
   //----------------------------------logica del canvas-------------------------
   private canvas: any;

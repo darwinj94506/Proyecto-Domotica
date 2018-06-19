@@ -8,7 +8,7 @@ import{GLOBAL} from './../../shared/services/global';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
-// import{NgbProgressbarConfig} from 'ngx-color-picker';
+import {NgbProgressbarConfig} from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -23,11 +23,12 @@ export class SistemaElectricoComponent implements OnInit {
   @ViewChild('fondoCanvas') fondoCanvas: ElementRef;
   @ViewChild('content') content: ElementRef;
   @ViewChild('contentCisterna') contentCisterna: ElementRef;
+  @ViewChild('contentTermometro') contentTermometro: ElementRef;
+  @ViewChild('contentNetwork') contentNetwork: ElementRef;
+  @ViewChild('#errorAutorizacion') errorAutorizacion: ElementRef;
+
   public color: string = 'rgb(0, 255, 255)';
 
-
-    
-    
     public URLGLOBAL;
     public URLIMAGEN;
     constructor(private _sanitizer:DomSanitizer,config: NgbProgressbarConfig,
@@ -191,7 +192,7 @@ export class SistemaElectricoComponent implements OnInit {
                           break;
                           case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/4.png":
                           // element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/4.1.png";
-                          this.open(this.content);
+                          this.open(this.contentNetwork);
 
 
                           break;
@@ -206,7 +207,7 @@ export class SistemaElectricoComponent implements OnInit {
                           break;
                           case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/6.png":
                           // element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/6.1.png";
-                          this.open(this.content);
+                          this.open(this.contentTermometro);
 
                           break;
                         
