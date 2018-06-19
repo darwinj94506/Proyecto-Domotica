@@ -14,6 +14,9 @@ declare const fabric: any;
     animations: [routerTransition()]
 })
 export class SistemaContraIncendiosComponent implements OnInit {
+
+  public activeBoton:any;
+  public longitud:any;
     
     constructor(private _sanitizer:DomSanitizer,private _crud:CrudService) {}
     //----------------------------------logica del canvas-------------------------
@@ -59,6 +62,8 @@ export class SistemaContraIncendiosComponent implements OnInit {
     // }]
     this._crud.getPisosIncendios().subscribe((data)=>{
                     this.pisos=data;
+                    // this.longitud=data.length();
+                    // this.activeBoton=data.length();
                     console.log(data);
                 });
 
@@ -617,7 +622,8 @@ export class SistemaContraIncendiosComponent implements OnInit {
 
    // dar
    public fondoDeCanvas:any;
-   cargardesdeJSON(json) {
+   cargardesdeJSON(json,i) {
+    this.activeBoton=i;
  
     this.canvas.loadFromJSON(json, () => {
       this.fondoDeCanvas=this.sanitizeImage('http://localhost:3000/api'+json.planta.img);

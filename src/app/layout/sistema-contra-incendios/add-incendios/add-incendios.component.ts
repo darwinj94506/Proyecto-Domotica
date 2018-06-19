@@ -3,6 +3,8 @@ import { routerTransition } from '../../../router.animations';
 import{DomSanitizer} from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import{CrudService} from './../../../shared/services/crud.service';
+import { Router } from '@angular/router';
+
 
 import 'fabric';
 declare const fabric: any;
@@ -16,7 +18,10 @@ declare const fabric: any;
 })
 export class AddIncendiosComponent implements OnInit {
 
-  constructor(private _sanitizer:DomSanitizer,private _crud:CrudService) { }
+  constructor(public router: Router,private _sanitizer:DomSanitizer,private _crud:CrudService) { }
+  nombrePiso:string;
+  espiner:Boolean=false;
+
 
 //
   
@@ -156,7 +161,7 @@ getImgPolaroid(event: any) {
  fabric.Image.fromURL(el.src, (image) => {
    image.set({
      left: 450,
-     top: 350,
+     top: 150,
      angle: 0,
      padding: 10,
      cornersize: 10,
@@ -570,10 +575,12 @@ saveCanvasToJSON() {
   let json2=JSON.parse(json);
   let objects=json2.objects;
   //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  this.espiner=true;
+
   this._crud.subirImagenIncendios(this.filesToUpload).then((n:any)=>{
     console.log(n);
     console.log("ggg",n.result.files.archivo[0].name);
-    alert("subio la imagen");
+    // alert("subio la imagen");
     let ob:any={};
     // "containers/incendios-img/upload"
     ob.ruta='/containers/incendios-img/download/'+n.result.files.archivo[0].name;
@@ -584,13 +591,20 @@ saveCanvasToJSON() {
     
     let piso={
      planta:{
-       nombre:'darwin',
+       nombre:this.nombrePiso,
        img:ob.ruta,
      },
      objects:objects
     }
-    this._crud.addPisoIncendios(JSON.stringify(piso)).subscribe(()=>{alert('guardo piso')});
+    this._crud.addPisoIncendios(JSON.stringify(piso)).subscribe(()=>{
+      this.espiner=false;
+      this.router.navigate(['/sistema-incendios']);    
+    });
     
+  }).catch((err)=>{
+    this.espiner=false;
+
+    alert("Ha ocurrido un error al subir la imagen al servidor");
   })
 
 

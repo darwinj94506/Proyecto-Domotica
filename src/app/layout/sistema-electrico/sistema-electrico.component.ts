@@ -20,6 +20,9 @@ import {NgbProgressbarConfig} from '@ng-bootstrap/ng-bootstrap';
 export class SistemaElectricoComponent implements OnInit {
   closeResult: string;
 
+  public activeBoton:any;
+
+
   @ViewChild('fondoCanvas') fondoCanvas: ElementRef;
   @ViewChild('content') content: ElementRef;
   @ViewChild('contentCisterna') contentCisterna: ElementRef;
@@ -795,7 +798,9 @@ export class SistemaElectricoComponent implements OnInit {
 
      public fondoDeCanvas:any;
      json2:any;
-     cargardesdeJSON(json) {
+     cargardesdeJSON(json,i) {
+      this.activeBoton=i;
+
        this.json2=json;
      
       this.canvas.loadFromJSON(json, () => {

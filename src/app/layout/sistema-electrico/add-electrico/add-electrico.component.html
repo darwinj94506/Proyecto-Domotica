@@ -14,7 +14,7 @@
                             <img class="images-item" (click)="getImgPolaroid($event)" src="assets/recursos/Sistema-Electrico/6.png">
                             <img class="images-item" (click)="getImgPolaroid($event)" src="assets/recursos/Sistema-Electrico/7.png">
                             <img class="images-item" (click)="getImgPolaroid($event)" src="assets/recursos/Sistema-Electrico/8.png">
-                            <img class="images-item" (click)="getImgPolaroid($event)" src="assets/recursos/Sistema-Electrico/9.png">
+                            <!-- <img class="images-item" (click)="getImgPolaroid($event)" src="assets/recursos/Sistema-Electrico/9.png"> -->
                             <img class="images-item" (click)="getImgPolaroid($event)" src="assets/recursos/Sistema-Electrico/10.png">
                             <img class="images-item" (click)="getImgPolaroid($event)" src="assets/recursos/Sistema-Electrico/11.png">
                             <img class="images-item" (click)="getImgPolaroid($event)" src="assets/recursos/Sistema-Electrico/12.png">
@@ -25,12 +25,8 @@
   
             </div>
             <div class="col-lg-4">
-                <!-- <button data-toggle="tooltip" data-placement="bottom" title="Export to image" type="button" class="btn btn-success" (click)="rasterize();">
-                        <i class="fa fa-download" aria-hidden="true"></i></button> -->
-                    <!-- <button data-toggle="tooltip" data-placement="bottom" title="Export to SVG" type="button" class="btn btn-primary" (click)="rasterizeSVG();">
-                        <i class="fa fa-download" aria-hidden="true"></i> Export to SVG</button> -->
-                    
-                        <div class="form-group">
+               
+                        <!-- <div class="form-group">
                             <div class="row">
                                 <div class="col-lg-6">
                                         <button data-toggle="tooltip" data-placement="bottom" [disabled]="url==null || url==''"
@@ -43,32 +39,48 @@
                                                 <i class="fa fa-ban" aria-hidden="true" block>Limpiar</i></button>
 
                                 </div>
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                            <div class="input-group">
-                                                    <!-- <div class="input-group-append">
-                                                        <span class="input-group-text">
-                                                            Nombre
-                                                        </span>
-                                                    </div> -->
-                                                    <input type="text" placeholder="Nombre de piso" class="form-control" [(ngModel)]="size.width">
-                    
-                                                </div>
-
-                                    </div>
-
-                                </div>
-
+                               
                             </div>
                             
-                            <!-- <button data-toggle="tooltip" data-placement="bottom" title="Load from localStorage" type="button" class="btn btn-primary"
-                                (click)="loadCanvasFromJSON();">
-                                <i class="fa fa-save" aria-hidden="true"></i> Cargar</button> -->
+                            
                             <br>
                             
                             
-                        </div>
-            </div>
+                        </div> -->
+    
+                <div class="card-body max-height">
+                    <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+                            <div class="btn-group mr-2" role="group" aria-label="First group">
+                              
+
+                                    <button *ngIf="!espiner" [disabled]="url==null || url=='' || nombrePiso==null || nombrePiso==''" type="button"
+                            (click)="saveCanvasToJSON();" class="btn btn-primary">
+                            <i class="fa fa-save" aria-hidden="true"></i></button>
+                        <button *ngIf="!espiner"  type="button" class="btn btn-danger"(click)="confirmClear();"> 
+                            <i class="fa fa-ban" aria-hidden="true"></i></button>
+                        <button *ngIf="espiner" type="button" class="btn btn-info">
+                                <i class="fa fa-spinner fa-spin"></i>Espere
+                        </button>
+
+                                
+                            </div>
+                            <div class="input-group" *ngIf="!espiner">
+                                <!-- <div class="input-group-prepend">
+                                <div class="input-group-text" id="btnGroupAddon"></div>
+                                </div> -->
+                                <input type="text" class="form-control" placeholder="Nombre de piso" [(ngModel)]="nombrePiso" name="nombrePiso"
+                                aria-label="Input group example" aria-describedby="btnGroupAddon">
+                    </div>
+
+                </div>
+                
+                       
+                </div>
+                              
+                            
+                           
+            
+             </div>
   
         </div>
         
@@ -232,7 +244,8 @@
                                                 <br/>
                                                 <div class="btn-group btn-group-justified" role="group" aria-label="...">
                                                     <div class="btn-group" role="group">
-                                                        <button type="button" class="btn btn-outline-danger btn-sm" (click)="removeWhite(url);">
+                                                        <button [disabled]="url==null || url==''" type="button" class="btn btn-outline-danger btn-sm" 
+                                                        (click)="removeWhite(url);" >
                                                             <i class="fa fa-times" aria-hidden="true"></i> Remover</button>
                                                     </div>
                                                 </div>

@@ -4,7 +4,7 @@
   <div class="card">
           <!-- <div class="card-header">Add images</div> -->
       <div class="row">
-          <div class="col-lg-9">
+          <div class="col-lg-8">
                   <div class="card-body max-height">
                           <img class="images-item" (click)="getImgPolaroid($event)" src="assets/recursos/Sistema-Incendios/1.png">
                           <img class="images-item" (click)="getImgPolaroid($event)" src="assets/recursos/Sistema-Incendios/2.png">
@@ -12,7 +12,7 @@
                           <img class="images-item" (click)="getImgPolaroid($event)" src="assets/recursos/Sistema-Incendios/4.png">
                           <img class="images-item" (click)="getImgPolaroid($event)" src="assets/recursos/Sistema-Incendios/5.png">
                           <img class="images-item" (click)="getImgPolaroid($event)" src="assets/recursos/Sistema-Incendios/6.png">
-                          <img class="images-item" (click)="getImgPolaroid($event)" src="assets/recursos/Sistema-Incendios/7.png">
+                          <!-- <img class="images-item" (click)="getImgPolaroid($event)" src="assets/recursos/Sistema-Incendios/7.png"> -->
                           <img class="images-item" (click)="getImgPolaroid($event)" src="assets/recursos/Sistema-Incendios/8.png">
                           <img class="images-item" (click)="getImgPolaroid($event)" src="assets/recursos/Sistema-Incendios/9.png">
                           <img class="images-item" (click)="getImgPolaroid($event)" src="assets/recursos/Sistema-Incendios/10.png">
@@ -24,21 +24,40 @@
                       </div>
 
           </div>
-          <div class="col-lg-3">
-              <!-- <button data-toggle="tooltip" data-placement="bottom" title="Export to image" type="button" class="btn btn-success" (click)="rasterize();">
-                      <i class="fa fa-download" aria-hidden="true"></i></button> -->
-                  <!-- <button data-toggle="tooltip" data-placement="bottom" title="Export to SVG" type="button" class="btn btn-primary" (click)="rasterizeSVG();">
-                      <i class="fa fa-download" aria-hidden="true"></i> Export to SVG</button> -->
-                  <button data-toggle="tooltip" data-placement="bottom" [disabled]="url==null || url==''"
-                    title="Guardar" type="button" class="btn btn-primary"
-                      (click)="saveCanvasToJSON();">
-                      <i class="fa fa-save" aria-hidden="true"></i></button>
-                  <!-- <button data-toggle="tooltip" data-placement="bottom" title="Load from localStorage" type="button" class="btn btn-primary"
-                      (click)="loadCanvasFromJSON();">
-                      <i class="fa fa-save" aria-hidden="true"></i> Cargar</button> -->
-                  <button data-toggle="tooltip" data-placement="bottom" title="Clean Canvas" type="button" class="btn btn-danger" (click)="confirmClear();">
-                      <i class="fa fa-ban" aria-hidden="true"></i></button>
-          </div>
+          <div class="col-lg-4">
+             
+                <!-- -->
+
+            <div class="card-body max-height">
+                <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+                    <div class="btn-group mr-2" role="group" aria-label="First group">
+                        <button *ngIf="!espiner" [disabled]="url==null || url=='' || nombrePiso==null || nombrePiso==''" type="button"
+                            (click)="saveCanvasToJSON();" class="btn btn-primary">
+                            <i class="fa fa-save" aria-hidden="true"></i></button>
+                        <button *ngIf="!espiner"  type="button" class="btn btn-danger"(click)="confirmClear();"> 
+                            <i class="fa fa-ban" aria-hidden="true"></i></button>
+                        <button *ngIf="espiner" type="button" class="btn btn-info">
+                                <i class="fa fa-spinner fa-spin"></i>Espere
+                        </button>
+
+                        
+                    </div>
+
+                    <div class="input-group" *ngIf="!espiner">
+                        <!-- <div class="input-group-prepend">
+                        <div class="input-group-text" id="btnGroupAddon"></div>
+                        </div> -->
+                        <input type="text" class="form-control" placeholder="Nombre de piso" [(ngModel)]="nombrePiso" name="nombrePiso"
+                        aria-label="Input group example" aria-describedby="btnGroupAddon">
+                    </div>
+
+                </div>
+            
+                    
+            </div>
+          
+          
+            </div>
 
       </div>
       
@@ -202,7 +221,9 @@
                                               <br/>
                                               <div class="btn-group btn-group-justified" role="group" aria-label="...">
                                                   <div class="btn-group" role="group">
-                                                      <button type="button" class="btn btn-outline-danger btn-sm" (click)="removeWhite(url);">
+                                                      <button type="button" class="btn btn-outline-danger btn-sm" 
+                                                      [disabled]="url==null || url==''"
+                                                       (click)="removeWhite(url);">
                                                           <i class="fa fa-times" aria-hidden="true"></i> Remover</button>
                                                   </div>
                                               </div>

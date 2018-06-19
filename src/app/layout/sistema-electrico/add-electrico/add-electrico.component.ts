@@ -5,6 +5,8 @@ import{DomSanitizer} from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import{CrudService} from './../../../shared/services/crud.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
+
 
 
 import 'fabric';
@@ -24,8 +26,10 @@ export class AddElectricoComponent implements OnInit {
   @ViewChild('errorAutorizacion') errorAutorizacion: ElementRef;
   closeResult: string;
 
+  public nombrePiso:string;
+  espiner:Boolean=false;
 
-  constructor(private _sanitizer:DomSanitizer,private _crud:CrudService,private modalService: NgbModal) { }
+  constructor(public router: Router,private _sanitizer:DomSanitizer,private _crud:CrudService,private modalService: NgbModal) { }
   open(content) {
     this.modalService.open(content).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -170,7 +174,7 @@ export class AddElectricoComponent implements OnInit {
   fabric.Image.fromURL(el.src, (image) => {
     image.set({
       left: 450,
-      top: 350,
+      top: 150,
       angle: 0,
       padding: 10,
       cornersize: 10,
@@ -209,10 +213,7 @@ export class AddElectricoComponent implements OnInit {
  }
  //modifico para subir una imagen  -------------------------
 
-//  public filesToUpload;
-//   SubirFileNoticia(FileInput:any) {
-//     this.filesToUpload=<Array<File>>FileInput.target.files;    
-// }
+
  public filesToUpload;
  readUrl(event) {
   if (event.target.files && event.target.files[0]) {
@@ -589,12 +590,14 @@ export class AddElectricoComponent implements OnInit {
  
  saveCanvasToJSON() {
 //primero subir la imagen al servidor
+this.espiner=true;
+
 console.log(this.filesToUpload);
 let json=JSON.stringify(this.canvas);
   this._crud.subirImagenElectrico(this.filesToUpload).then((n:any)=>{
     console.log(n);
     console.log("ggg",n.result.files.archivo[0].name);
-    alert("subio la imagen");
+    // alert("subio la imagen");
     let ob:any={};
     // "containers/incendios-img/upload"
     ob.ruta='/containers/electricos-img/download/'+n.result.files.archivo[0].name;
@@ -605,13 +608,19 @@ let json=JSON.stringify(this.canvas);
     
     let piso={
      planta:{
-       nombre:'darwin',
+       nombre:this.nombrePiso,
        img:ob.ruta,
      },
      objects:objects
     }
-    this._crud.addPisoElectrico(JSON.stringify(piso)).subscribe(()=>{alert('guardo piso')});
+    this._crud.addPisoElectrico(JSON.stringify(piso)).subscribe(()=>{
+      this.espiner=false;
+      this.router.navigate(['/sistema-electrico']);    
+    });
     
+  }).catch(()=>{
+    this.espiner=false;
+    alert("error al subir imagen");
   })
  }
  
