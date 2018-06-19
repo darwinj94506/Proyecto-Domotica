@@ -1,16 +1,17 @@
-import { Component, OnInit ,ViewChild} from '@angular/core';
+import { Component, OnInit ,ViewChild,OnDestroy } from '@angular/core';
 import { routerTransition } from '../../../router.animations';
 import{AlarmasService} from './../../../shared/services/alarmas.service';
 import { Alarma } from './../../../shared/models/alarma';
 import * as _ from 'lodash';
 import * as moment from 'moment';
+
 @Component({
   selector: 'app-reporte-alarmas',
   templateUrl: './reporte-alarmas.component.html',
   styleUrls: ['./reporte-alarmas.component.scss'],
   animations: [routerTransition()]
 })
-export class ReporteAlarmasComponent implements OnInit {
+export class ReporteAlarmasComponent implements OnInit, OnDestroy{
   @ViewChild('alarmasTable') table: any;
   editing = {};  
   selected = []; 
@@ -25,9 +26,30 @@ export class ReporteAlarmasComponent implements OnInit {
   swapColumns: boolean = false;
   temp = []; 
 
+
+  //SOCKET IO
+  messages = [];
+  connection;
+  message;
+  sendMessage(){
+    this._alarmaServ.sendMessage(this.message);
+    this.message = '';
+  }
+
+  // fin socket
   constructor(public _alarmaServ:AlarmasService) { }
   ngOnInit() {
     this.cargarDatos();
+  // SOCKET
+    this.connection = this._alarmaServ.getMessages().subscribe(message => {
+      this.messages.push(message);
+      console.log("mensaje llego",message);
+    })
+  }
+
+  ngOnDestroy() {
+// SOCKET
+    this.connection.unsubscribe();
   }
 
   cargarDatos()

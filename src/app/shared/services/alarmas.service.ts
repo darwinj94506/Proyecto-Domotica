@@ -3,11 +3,16 @@ import { Injectable } from '@angular/core';
 import{HttpModule,Http,Response,Headers,RequestOptions} from '@angular/http';
 import{GLOBAL} from './global';
 import 'rxjs/add/operator/map';
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
+import * as io from 'socket.io-client';
 @Injectable()
 export class AlarmasService {
   public identity;
   public token;
   public url:string;
+  private url_local = 'http://localhost:5000';  
+  private socket;
   // this.id=id;
   // this.fecha=fecha;
   // this.hora=hora;
@@ -18,6 +23,25 @@ export class AlarmasService {
   constructor(private _http:Http) { 
     this.url=GLOBAL.url;
   }
+
+// SOCKETS SERVICES
+  sendMessage(message){
+    this.socket.emit('add-message', message);    
+  }
+  
+  getMessages() {
+    let observable = new Observable(observer => {
+      this.socket = io(this.url);
+      this.socket.on('alarma', (data) => {
+        observer.next(data);    
+      });
+      return () => {
+        this.socket.disconnect();
+      };  
+    })     
+    return observable;
+  } 
+  //FINAL SOCKET SERVICES
   getIdentity(){
     let identity=JSON.parse(localStorage.getItem('identity'));
     if(identity!="undefined"){
