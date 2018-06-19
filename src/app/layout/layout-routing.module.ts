@@ -17,6 +17,8 @@ const routes: Routes = [
             { path: 'sistema-electrico',
              loadChildren: './sistema-electrico/sistema-electrico.module#SistemaElectricoModule' },
             { path: 'components', loadChildren: './bs-component/bs-component.module#BsComponentModule' },
+            { path: 'alarmas', loadChildren: './alarmas/alarmas.module#AlarmasModule' },
+            { path: 'reporte-alarmas', loadChildren: './reporte-alarmas/reporte-alarmas.module#ReporteAlarmasModule' },
             { path: 'blank-page', loadChildren: './blank-page/blank-page.module#BlankPageModule' }
         ]
     }

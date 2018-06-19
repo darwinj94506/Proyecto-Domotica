@@ -1,3 +1,4 @@
+import { AlarmasService } from './shared';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
@@ -19,6 +20,7 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 
 
@@ -38,6 +40,7 @@ export function createTranslateLoader(http: HttpClient) {
         // AngularFireModule.initializeApp(environment.firebase),   
         AngularFirestoreModule, // imports firebase/firestore, only needed for database features
         AngularFireStorageModule,
+        NgxDatatableModule,
         NgbModule.forRoot(),
         TranslateModule.forRoot({
             loader: {
@@ -49,7 +52,7 @@ export function createTranslateLoader(http: HttpClient) {
         AppRoutingModule
     ],
     declarations: [AppComponent],
-    providers: [AuthGuard,CrudService],
+    providers: [AuthGuard,CrudService,AlarmasService],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

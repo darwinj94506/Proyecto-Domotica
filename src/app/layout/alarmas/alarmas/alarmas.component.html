@@ -1,0 +1,128 @@
+<div [@routerTransition]>
+<div>
+  <button class="btn" (click)="crearAlarma()">Crear Alarma</button>
+  <ngx-datatable
+          #alarmasTable 
+          style="width: 90%"
+          class="material"
+          [rows]="rows"
+          [columnMode]="'force'"
+          [headerHeight]="50"
+          [footerHeight]="50"
+          [rowHeight]="'auto'"
+          [limit]="5"
+          [selected]="selected"
+          [selectionType]="'checkbox'"
+          [selectAllRowsOnPage]="false"          
+          (activate)="onActivate($event)"
+          (select)='onSelect($event)'
+          [trackByProp]="'updated'">
+          <ngx-datatable-column
+            [width]="30"
+            [sortable]="false"
+            [canAutoResize]="false"
+            [draggable]="false"
+            [resizeable]="false"
+            [headerCheckboxable]="true"
+            [checkboxable]="true"
+            >
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Fecha">
+              <ng-template ngx-datatable-cell-template let-value="value">
+                {{value}}
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Hora">
+              <ng-template ngx-datatable-cell-template let-value="value">
+                {{value}}
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Tipo">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                <span
+                  title="Doble click para editar"
+                  (dblclick)="editing[rowIndex + '-tipo'] = true"
+                  *ngIf="!editing[rowIndex + '-tipo']">
+                  {{value}}
+                </span>
+                <input
+                  autofocus
+                  (blur)="updateValue($event, 'tipo', rowIndex)"
+                  *ngIf="editing[rowIndex+ '-tipo']"
+                  type="text"
+                  [value]="value"
+                />
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Sector">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                <span
+                  title="Doble click para editar"
+                  (dblclick)="editing[rowIndex + '-sector'] = true"
+                  *ngIf="!editing[rowIndex + '-sector']">
+                  {{value}}
+                </span>
+                <input
+                  autofocus
+                  (blur)="updateValue($event, 'sector', rowIndex)"
+                  *ngIf="editing[rowIndex+ '-sector']"
+                  type="text"
+                  [value]="value"
+                />
+              </ng-template>
+            </ngx-datatable-column>
+          <ngx-datatable-column name="Responsable">
+              <ng-template ngx-datatable-cell-template let-value="value">
+                {{value}}
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Correo">
+              <ng-template ngx-datatable-cell-template let-value="value">
+                {{value}}
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Estado">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                <span
+                  title="Doble click para editar"
+                  (dblclick)="editing[rowIndex + '-estado'] = true"
+                  *ngIf="!editing[rowIndex + '-estado']">
+                  <!-- {{value}} -->
+                  <span *ngIf="value==true">
+                    ACK
+                  </span>
+                  <span *ngIf="value==false">
+                      NO ACK
+                    </span>                  
+                </span>
+                <!-- <input
+                  autofocus
+                  (blur)="updateValue($event, 'tipo', rowIndex)"
+                  *ngIf="editing[rowIndex+ '-tipo']"
+                  type="text"
+                  [value]="value"
+                /> -->
+                <input 
+                
+              type="checkbox"
+              *ngIf="editing[rowIndex + '-estado']"
+              (blur)="editing[rowIndex + '-estado']=false"              
+              (change)="checkEditing($event, row, rowIndex)" 
+              [value]="value"               
+              [checked]="value"
+              >
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Eliminar">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                <button (click)="eliminarRow(rowIndex)">Eliminar</button>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Actualizar">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value">
+                <button (click)="actualizarRow(rowIndex)">Actualizar</button>
+              </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
+</div>
+</div>
