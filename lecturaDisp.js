@@ -20,6 +20,8 @@ process.on("message",(msg)=>{
     setInterval(()=>{
         conexionDispositivosUDP("leer");
     },1000)    
+
+    
 })
 
 
