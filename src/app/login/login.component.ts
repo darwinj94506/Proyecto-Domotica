@@ -1,3 +1,4 @@
+import { dispositivo } from './../shared/services/dispositivo.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { routerTransition } from '../router.animations';
@@ -14,9 +15,14 @@ export class LoginComponent implements OnInit {
     email:String='';
     password:String='';
     espiner:Boolean=false;
-    constructor(public router: Router,private _crudService:CrudService) {}
+    constructor(public router: Router,private _crudService:CrudService,private soIO:dispositivo) {}
 
-    ngOnInit() {}
+    ngOnInit() {
+
+        this.soIO.messages.subscribe(msg=>{
+            console.log(msg);
+        })
+    }
 
     onLoggedin() {
         console.log(this.password);
@@ -38,5 +44,14 @@ export class LoginComponent implements OnInit {
                     this.espiner=false;
                     alert("Correo o contraseña incorrectos");
             })
+    }
+
+    prender()
+    {
+        this.soIO.sendMsg("prenderFoco");
+    }
+    apagar()
+    {
+        this.soIO.sendMsg("apagarFoco");
     }
 }

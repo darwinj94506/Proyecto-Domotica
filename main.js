@@ -1,90 +1,53 @@
+var child_process=require('child_process');
+var exec=child_process.exec;
+var fork=child_process.fork;
+
 const { app, BrowserWindow } = require('electron')
-var restify = require('restify');
-// UDP
-var PORT = 33333;
-var HOST = '192.168.137.227';
-
-var dgram = require('dgram');
-var message = new Buffer('Soy Byron!');
-// FIN UDP
-
-var server = restify.createServer({
-  name: 'localhost',
-  version: '1.0.0'
-});
-var io = require('socket.io')(server);
-
-
-// UDP
-var client = dgram.createSocket('udp4');
-// client.on('listening', function () {
-//     var address = client.address();
-//     console.log('UDP Cliente listening on ' + address.address + ":" + address.port);
-    
-// });
-// client.send(message, 0, message.length, PORT, HOST, function(err, bytes) {
-//     if (err) throw err;
-//     console.log('UDP message sent to ' + HOST +':'+ PORT);    
-// });
-
-// client.on('message', function (message, remote) {
-//     console.log(remote.address + ':' + remote.port +' - ' + message);
-//     client.close();
-// });
-//FIN UDP
 
 
 
 
+function conexionDispositivosUDP(comando)
+{
+  var child=exec('java -jar ./HDL_UDP_Socket.jar '+comando,(error,stdout,stderr)=>{
+    console.log('Output->'+stdout);
+    if(error !== null)
+    {
+        console.log("error->"+error);
+    }else{
+        console.log("Sin error");
+    }
+  });
+
+  module.exports=child;
+}
 
 // SOCKETS IO
-io.on('connection', (socket) => {
-  console.log('user connected');
+var spLecturaDisp=fork("lecturaDisp.js");
+var io = require('socket.io').listen(3000);
+console.log('Server is listening on port 3000...');
+io.sockets.on('connection',function(client){
+  console.log('Conectado');
 
-  socket.on('new message', (data) => {
-
-    // we tell the client to execute 'new message'
- //UPD 
- client.on('listening', function () {
-  var address = client.address();
-  console.log('UDP Cliente listening on ' + address.address + ":" + address.port);
+  //Escanear dispositivo
+  spLecturaDisp.send({msg:"lectura_continua"});
   
-});
-client.send(message, 0, message.length, PORT, HOST, function(err, bytes) {
-  if (err) throw err;
-  console.log('UDP message sent to ' + HOST +':'+ PORT);    
-});
-// UDP
-    socket.broadcast.emit('alarma', {
-
-      username: "Byron",
-
-      message: "Alarma Activada"
-
+  
+  client.on('disconnect',()=>
+  {
+      console.log("Desconectado");
+      //Matar proceso
+      spLecturaDisp.kill(0);
   });
 
-  socket.on('disconnect', function(){
-    console.log('user disconnected');
-  });
-    
-
-  socket.on('add-message', (message) => {
-    io.emit('message', {type:'new-message', text: message});    
-  });
-});
+  
+  client.on('message',(message)=>
+  {
+    console.log("Comando recibido:"+message);
+    conexionDispositivosUDP(message);   
+  }); 
 });
 // FIN SOCKETS IO
-
-server.use(restify.plugins.acceptParser(server.acceptable));
-server.use(restify.plugins.queryParser({
-  mapParams: true
-}));
-server.use(restify.plugins.bodyParser({
-  mapParams: true
-}));
-
-
-
 
 function createWindow () {
   // Create the browser window.
@@ -128,6 +91,18 @@ app.on('activate', function () {
 
 
 
-server.listen(8080, function() {
-  console.log('%s listening at %s', server.name, server.url);
-});
+
+// UDP CONEXION CON DISPOSITIVOS
+
+
+
+
+
+
+
+
+
+//statuslight
+//(1) => numero de canales del dispositivo (Eneste caso 4)
+//(>2 hasta 5)=>  Estado de los canales (0-100)
+//

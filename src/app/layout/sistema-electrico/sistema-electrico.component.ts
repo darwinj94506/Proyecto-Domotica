@@ -1,3 +1,4 @@
+import { dispositivo } from './../../shared/services/dispositivo.service';
 import { Component,ViewChild,ElementRef, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
 import{CrudService} from './../../shared/services/crud.service';
@@ -35,7 +36,8 @@ export class SistemaElectricoComponent implements OnInit {
     public URLGLOBAL;
     public URLIMAGEN;
     constructor(private _sanitizer:DomSanitizer,config: NgbProgressbarConfig,
-      private _crud:CrudService,private modalService: NgbModal){
+      private _crud:CrudService,private modalService: NgbModal,
+      private soIO:dispositivo){
         //configuracion de progress bar
         config.max = 100;
         config.striped = true;
@@ -124,7 +126,7 @@ export class SistemaElectricoComponent implements OnInit {
              },
             'object:modified': (e) => { },
             'object:selected': (e) => {
-      
+              
               let selectedObject = e.target;
               this.selected = selectedObject
               // console.log(e);
@@ -174,14 +176,16 @@ export class SistemaElectricoComponent implements OnInit {
                           element.src=this.URLIMAGEN+'assets/recursos/Sistema-Electrico/1.1.png';
                           break;
                           case this.URLIMAGEN+'assets/recursos/Sistema-Electrico/1.1.png':
-                    
+                          
                           element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/1.png";
                           break;
                           case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/2.png":
+                          this.soIO.sendMsg("prenderFoco");
                           element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/2.1.png";
 
                           break;
                           case this.URLIMAGEN+"assets/recursos/Sistema-Electrico/2.1.png":
+                          this.soIO.sendMsg("apagarFoco");
                           element.src=this.URLIMAGEN+"assets/recursos/Sistema-Electrico/2.png";
 
                           break;

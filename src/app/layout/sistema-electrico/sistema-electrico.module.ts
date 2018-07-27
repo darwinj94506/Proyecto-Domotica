@@ -1,3 +1,5 @@
+import { WebsocketService } from './../../shared/services/websocket.service';
+import { dispositivo } from './../../shared/services/dispositivo.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpModule} from '@angular/http';
@@ -21,6 +23,6 @@ import { AddElectricoComponent } from './add-electrico/add-electrico.component';
           PageHeaderModule,
           HttpModule],
     declarations: [SistemaElectricoComponent, AddElectricoComponent],
-    providers:[CrudService]
+    providers:[CrudService,dispositivo,WebsocketService]
 })
 export class SistemaElectricoModule {}

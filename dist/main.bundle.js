@@ -38,8 +38,8 @@ var map = {
 	],
 	"./login/login.module": [
 		"./src/app/login/login.module.ts",
-		"common",
-		"login.module"
+		"login.module",
+		"common"
 	],
 	"./not-found/not-found.module": [
 		"./src/app/not-found/not-found.module.ts",
