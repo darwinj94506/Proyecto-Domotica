@@ -618,7 +618,8 @@ let json=JSON.stringify(this.canvas);
       this.router.navigate(['/sistema-electrico']);    
     });
     
-  }).catch(()=>{
+  }).catch((error)=>{
+    console.log(error);
     this.espiner=false;
     alert("error al subir imagen");
   })

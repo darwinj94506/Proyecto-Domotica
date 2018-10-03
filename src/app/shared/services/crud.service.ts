@@ -186,7 +186,7 @@ export class CrudService{
     addPisoElectrico(piso){
       // let params=JSON.stringify(piso);
       // console.log(params);
-      let headers=new Headers({'Content-Type':'application/json'});
+      let headers=new Headers({'Content-Type':'application/json','Authorization':this.getToken()});
       return this._http.post(this.url+'sistema_electricos',piso, {headers:headers})
       .map( res => res.json());
     }
@@ -242,6 +242,8 @@ export class CrudService{
     }
     
     subirImagenElectrico(files:Array<File>){
+      console.log("medoso subir imagen");
+      console.log(this.getToken());
       let c=this;
           return new Promise(function(resolve,reject){
             // let headers=new Headers({'Content-Type':'application/json','Authorization':this.getToken()});
@@ -262,8 +264,10 @@ export class CrudService{
                   reject(xhr.response);
                 }
               }
-            }    
-            xhr.open('POST',c.url+"containers/electricos-img/upload",
+            }
+            
+
+            xhr.open('POST',c.url+"containers/electricos-img/upload?access_token="+c.getToken(),
                 true);
 
                 // POST /containers/{container}/upload
@@ -294,7 +298,7 @@ export class CrudService{
                 }
               }
             }    
-            xhr.open('POST',c.url+"containers/incendios-img/upload",
+            xhr.open('POST',c.url+"containers/incendios-img/upload?access_token="+c.getToken(),
                 true);
 
                 // POST /containers/{container}/upload

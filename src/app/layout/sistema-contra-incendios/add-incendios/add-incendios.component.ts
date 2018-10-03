@@ -602,6 +602,7 @@ saveCanvasToJSON() {
     });
     
   }).catch((err)=>{
+    console.log(err);
     this.espiner=false;
 
     alert("Ha ocurrido un error al subir la imagen al servidor");

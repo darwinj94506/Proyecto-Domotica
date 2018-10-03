@@ -24,7 +24,7 @@ function conexionDispositivosUDP(comando)
 
 // SOCKETS IO
 var spLecturaDisp=fork("lecturaDisp.js");
-var io = require('socket.io').listen(3000);
+var io = require('socket.io').listen(4000);
 console.log('Server is listening on port 3000...');
 io.sockets.on('connection',function(client){
   console.log('Conectado');

@@ -8,7 +8,8 @@ function conexionDispositivosUDP(comando)
     {
         console.log("error->"+error);
     }else{
-        console.log("Sin error");
+        process.send({});
+        console.log("Sin error");        
     }
   });
 
